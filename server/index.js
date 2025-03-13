@@ -9,15 +9,15 @@ const users = [
     {id:2,name:'Nasim',profession:'student',email:"nasim@gmail.com"},
     {id:3,name:'Rakib',profession:'student',email:"rakib@gmail.com"}
 ]
-app.get('/',(req,res)=>{
-    res.send("LA MRIDUL");
-})
 app.get('/users',(req,res)=>{
     res.send(users);
 })
-app.post("/users",(req,res)=>{
-    console.log("api hitting");
+app.post('/users',(req,res)=>{
     console.log(req.body);
+    const newUser = req.body;
+    newUser.id = users.length+1;
+    users.push(newUser);
+    res.send(newUser)
 })
 app.listen(port,()=>{
     console.log("listening from: ",port);

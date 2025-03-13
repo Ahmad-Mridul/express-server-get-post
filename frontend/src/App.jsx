@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import './App.css'
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
   useEffect(()=>{
     fetch('http://localhost:5000/users')
     .then(res=>res.json())
-    .then(data=>setUsers(data));
+    .then(data=>setUsers(data))
   },[])
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +23,11 @@ function App() {
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log("response data: ",data);
+      e.target.email.value="";
+      e.target.name.value="";
+      console.log("hitting data: ",data);
+      const newUser = [...users,data];
+      setUsers(newUser);
     })
   }
   return (
@@ -35,10 +39,12 @@ function App() {
         <button style={{background:"red",marginTop:"10px"}} className="btn">submit</button>
       </form>
       {
-        users.map(user=><>
-          <p>name: {user.name}</p>
-          <p>email: {user.email}</p>
-        </>)
+        users.map(user=>
+          <>
+            <p>{user.id}. name: {user.name}</p>
+            <p>email: {user.email}</p>
+          </>
+        )
       }
     </>
   )
